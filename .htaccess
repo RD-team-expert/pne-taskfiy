@@ -1,3 +1,5 @@
+# PHP memory limit
+php_value memory_limit 512M
 RewriteEngine on
 RewriteCond %{REQUEST_URI} !^public
 RewriteRule ^(.*)$ public/$1 [L]

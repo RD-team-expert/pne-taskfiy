@@ -31,6 +31,9 @@ if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php'))
 |
 */
 
+// Add this at the top of your index.php file, before any other code
+ini_set('memory_limit', '512M');
+
 require __DIR__.'/../vendor/autoload.php';
 
 /*
