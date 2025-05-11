@@ -25,9 +25,17 @@ class CustomBladeDirectivesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Make sure the cache path is set before registering directives
-        $this->app->make('blade.compiler');
-        
+        // Register directives directly without explicitly making the blade compiler
+        $this->registerDirectives();
+    }
+    
+    /**
+     * Register custom blade directives
+     *
+     * @return void
+     */
+    protected function registerDirectives()
+    {
         Blade::directive('authBoth', function () {
             return "<?php if (auth('web')->check() || auth('client')->check() || auth()->guard('sanctum')->check()) { ?>";
         });
