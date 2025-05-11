@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\View\Compilers\BladeCompiler;
 
 class CustomBladeDirectivesServiceProvider extends ServiceProvider
 {
@@ -24,8 +25,11 @@ class CustomBladeDirectivesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // Make sure the cache path is set before registering directives
+        $this->app->make('blade.compiler');
+        
         Blade::directive('authBoth', function () {
-            return "<?php if (auth('web')->check() || auth('client')->check() || auth()->guard('sanctum')->check()): ?>";
+            return "<?php if (auth('web')->check() || auth('client')->check() || auth()->guard('sanctum')->check()) { ?>";
         });
 
         Blade::directive('endauthBoth', function () {
